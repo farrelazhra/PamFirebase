@@ -51,7 +51,7 @@ public class InsertNoteActivity extends AppCompatActivity implements View.OnClic
         etDesc = findViewById(R.id.et_description);
         btnSubmit = findViewById(R.id.btn_submit);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance("https://pamfirebase-553fc-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference();
         note = new Note();
         btnSubmit.setOnClickListener(this);
@@ -90,6 +90,7 @@ public class InsertNoteActivity extends AppCompatActivity implements View.OnClic
         }
         String title = etTitle.getText().toString();
         String desc = etDesc.getText().toString();
+
         Note baru = new Note(title, desc);
         databaseReference.child("notes").child(mAuth.getUid()).push().setValue(baru)
                 .addOnSuccessListener(this, new OnSuccessListener<Void>() {
