@@ -21,11 +21,14 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+    private static final String AUTO_EMAIL = "farrel@gmail.com";
+    private static final String AUTO_PASSWORD = "rahasia";
 
     private EditText etEmail;
     private EditText etPass;
     private Button btnMasuk;
     private Button btnDaftar;
+    private Button btnAutoLogin;
     private FirebaseAuth mAuth;
 
     @Override
@@ -37,10 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etPass = (EditText)findViewById(R.id.et_pass);
         btnMasuk = (Button) findViewById(R.id.btn_masuk);
         btnDaftar = (Button)findViewById(R.id.btn_daftar);
+        btnAutoLogin = (Button) findViewById(R.id.btn_auto_login);
         mAuth = FirebaseAuth.getInstance();
 
         btnMasuk.setOnClickListener(this);
         btnDaftar.setOnClickListener(this);
+        btnAutoLogin.setOnClickListener(this);
     }
 
     @Override
@@ -58,9 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             login(etEmail.getText().toString(), etPass.getText().toString());
         } else if (id == R.id.btn_daftar) {
             signUp(etEmail.getText().toString(), etPass.getText().toString());
+        } else if (id == R.id.btn_auto_login) {
+            autoLogin(); // Panggil method auto login
         }
     }
-
+    private void autoLogin() {
+        // Gunakan email dan password yang sudah ditentukan
+        login(AUTO_EMAIL, AUTO_PASSWORD);
+    }
     public void signUp(String email, String password){
         if (!validateForm()) {
             return;
